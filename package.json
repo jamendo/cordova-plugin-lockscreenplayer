@@ -1,0 +1,19 @@
+{
+  "name": "cordova-plugin-lockscreenplayer",
+  "version": "0.0.1",
+  "description": "cordova plugin lockscreenplayer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamendo/cordova-plugin-lockscreenplayer.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jamendo/cordova-plugin-lockscreenplayer/issues"
+  },
+  "homepage": "https://github.com/jamendo/cordova-plugin-lockscreenplayer#readme"
+}
