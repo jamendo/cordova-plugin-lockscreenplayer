@@ -133,7 +133,7 @@ Add to MainViewController.m:
 		NSDictionary *dict = @{@"type": action};
 		NSData *jsonData = [NSJSONSerialization dataWithJSONObject : dict options : 0 error : nil];
 		NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding : NSUTF8StringEncoding];
-		NSString *jsStatement = [NSString stringWithFormat : @"cordova.plugins.LockScreenPlayer._setEvent(%@)", jsonString];
+		NSString *jsStatement = [NSString stringWithFormat : @"window.cordova.plugins.LockScreenPlayer._setEvent(%@)", jsonString];
 		if ([self.webView isKindOfClass:[UIWebView class]]) {
 			[(UIWebView*)self.webView stringByEvaluatingJavaScriptFromString : jsStatement];
 		}

@@ -96,12 +96,16 @@ var LockScreenPlayer = {
 };
 
 function install() {
-    if (!window.plugins) {
-        window.plugins = {};
+    if (!window.cordova) {
+        window.cordova = {};
     }
 
-    window.plugins.LockScreenPlayer = LockScreenPlayer;
-    return window.plugins.LockScreenPlayer;
+    if (!window.cordova.plugins) {
+        window.cordova.plugins = {};
+    }
+
+    window.cordova.plugins.LockScreenPlayer = LockScreenPlayer;
+    return window.cordova.plugins.LockScreenPlayer;
 };
 
 cordova.addConstructor(install);

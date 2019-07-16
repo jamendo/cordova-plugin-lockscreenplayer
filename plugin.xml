@@ -36,7 +36,7 @@
 
   <!-- js -->
   <js-module src="www/LockScreenPlayer.js" name="LockScreenPlayer">
-    <clobbers target="plugins.LockScreenPlayer" />
+    <clobbers target="cordova.plugins.LockScreenPlayer" />
   </js-module>
 
   <!-- android -->
