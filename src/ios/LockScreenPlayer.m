@@ -46,7 +46,7 @@ Add to MainViewController.m:
     
 	if (NSClassFromString(@"MPNowPlayingInfoCenter")) {
 		MPNowPlayingInfoCenter *center = [MPNowPlayingInfoCenter defaultCenter];
-		NSMutableDictionary* info = [NSMutableDictionary dictionaryWithCapacity : 6];
+		NSMutableDictionary* info = [NSMutableDictionary dictionaryWithCapacity : 7];
 		[info setObject : artistName forKey : MPMediaItemPropertyArtist];
 		[info setObject : title forKey : MPMediaItemPropertyTitle];
 		[info setObject : albumName forKey : MPMediaItemPropertyAlbumTitle];
