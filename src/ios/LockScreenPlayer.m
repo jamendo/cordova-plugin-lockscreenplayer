@@ -34,56 +34,35 @@ Add to MainViewController.m:
 -(void)updateInfos:(CDVInvokedUrlCommand*)command
 {
 	CDVPluginResult* pluginResult = nil;
+    
 	NSDictionary* json = [command.arguments objectAtIndex : 0];
-
-	NSError* error;
-	/*NSDictionary* json = [NSJSONSerialization
-	JSONObjectWithData:data
-
-	options:kNilOptions
-	error:&error];
-	*/
 	NSString* title = [json objectForKey : @"title"];
 	NSString* artistName = [json objectForKey : @"artistName"];
 	NSString* albumName = [json objectForKey : @"albumName"];
 	NSString* cover = [json objectForKey : @"cover"];
 	NSNumber* duration = [json objectForKey : @"duration"];
-	int durationNumber = [duration intValue] / 1000;
-	BOOL isPlaying = [[json objectForKey : @"isPlaying"] boolValue];
-
-	//dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-
-	//UIImage *cover = nil;
-	//cover = [UIImage imageNamed:@"no-image"];
-
-	//CGImageRef cgref = [cover CGImage];
-	//CIImage *cim = [cover CIImage];
-
-	//if (cim != nil || cgref != NULL) {
-	//dispatch_async(dispatch_get_main_queue(), ^{
+	NSNumber* elapsedTime = [json objectForKey : @"currentDuration"];
+    
 	if (NSClassFromString(@"MPNowPlayingInfoCenter")) {
-		//MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage: cover];
 		MPNowPlayingInfoCenter *center = [MPNowPlayingInfoCenter defaultCenter];
 		NSMutableDictionary* info = [NSMutableDictionary dictionaryWithCapacity : 6];
 		[info setObject : artistName forKey : MPMediaItemPropertyArtist];
 		[info setObject : title forKey : MPMediaItemPropertyTitle];
 		[info setObject : albumName forKey : MPMediaItemPropertyAlbumTitle];
-		[info setObject : [NSNumber numberWithInt : durationNumber] forKey : MPMediaItemPropertyPlaybackDuration];
-		//[info setObject:@"40" forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
+		[info setObject : duration forKey : MPMediaItemPropertyPlaybackDuration];
+        [info setObject : elapsedTime forKey : MPNowPlayingInfoPropertyElapsedPlaybackTime];
+        UIImage *image = [UIImage imageWithData:[[NSData alloc] initWithBase64EncodedString:cover options:NSDataBase64DecodingIgnoreUnknownCharacters]];
+        if (image != nil) {
+            CGImageRef cgref = [image CGImage];
+            CIImage *cim = [image CIImage];
+            if (cim != nil || cgref != NULL) {
+                MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage: image];
+                [info setValue : artwork forKey : MPMediaItemPropertyArtwork];
+            }
+        }
+        
 		[center setNowPlayingInfo : info];
-		/*center.nowPlayingInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-		artistName, MPMediaItemPropertyArtist,
-		title, MPMediaItemPropertyTitle,
-		albumName, MPMediaItemPropertyAlbumTitle,
-		//artwork, MPMediaItemPropertyArtwork,
-		duration, MPMediaItemPropertyPlaybackDuration,
-		40, MPNowPlayingInfoPropertyElapsedPlaybackTime,
-		[NSNumber numberWithInt:1], MPNowPlayingInfoPropertyPlaybackRate, nil];*/
 	}
-	//});
-	//}
-
-	//});
 
 	pluginResult = [CDVPluginResult resultWithStatus : CDVCommandStatus_OK messageAsString : @"Ok..."];
 	//pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
