@@ -62,9 +62,7 @@ Add to MainViewController.m:
             }
         }
         [info setObject : [NSNumber numberWithDouble:isPlaying ? 1.0 : 0.0] forKey : MPNowPlayingInfoPropertyPlaybackRate];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            [center setNowPlayingInfo : info];
-        });
+        [center setNowPlayingInfo : info];
 	}
 
 	pluginResult = [CDVPluginResult resultWithStatus : CDVCommandStatus_OK messageAsString : @"Ok..."];
