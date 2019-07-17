@@ -42,6 +42,7 @@ Add to MainViewController.m:
 	NSString* cover = [json objectForKey : @"cover"];
 	NSNumber* duration = [json objectForKey : @"duration"];
 	NSNumber* elapsedTime = [json objectForKey : @"currentDuration"];
+  BOOL isPlaying = [[json objectForKey : @"isPlaying"] boolValue];
     
 	if (NSClassFromString(@"MPNowPlayingInfoCenter")) {
 		MPNowPlayingInfoCenter *center = [MPNowPlayingInfoCenter defaultCenter];
@@ -60,8 +61,8 @@ Add to MainViewController.m:
                 [info setValue : artwork forKey : MPMediaItemPropertyArtwork];
             }
         }
-        
-		[center setNowPlayingInfo : info];
+        [info setObject : [NSNumber numberWithDouble:isPlaying ? 1.0 : 0.0] forKey : MPNowPlayingInfoPropertyPlaybackRate];
+        [center setNowPlayingInfo : info];
 	}
 
 	pluginResult = [CDVPluginResult resultWithStatus : CDVCommandStatus_OK messageAsString : @"Ok..."];
